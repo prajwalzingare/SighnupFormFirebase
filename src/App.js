@@ -1,10 +1,13 @@
 import Sighnup from "./components/Sighnup";
+import { AuthProvider } from "./context/AuthContext";
 
 function App() {
   return (
-    <div>
-      <Sighnup />
-    </div>
+    <AuthProvider>
+      <div>
+        <Sighnup />
+      </div>
+    </AuthProvider>
   );
 }
 
