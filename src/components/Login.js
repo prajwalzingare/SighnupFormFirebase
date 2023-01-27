@@ -1,31 +1,25 @@
 import React, { useRef, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 
-function Sighnup() {
+function Login() {
   //useref for values from input fields
   const emailRef = useRef();
   const passwordRef = useRef();
-  const confirmPasswordRef = useRef();
+
   //sighnup function from useAuth()
-  const { sighnup } = useAuth();
+  const { login } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   //submit function for form submition
   async function handleSubmit(event) {
     event.preventDefault();
-    console.log(passwordRef.current.value);
-    console.log(emailRef.current.value);
-    if (passwordRef.current.value !== confirmPasswordRef.current.value) {
-      //it will exist out of function after returning error
-      return setError("password do not match");
-    }
     try {
       setError("");
       setLoading(true);
-      await sighnup(emailRef.current.value, passwordRef.current.value);
+      await login(emailRef.current.value, passwordRef.current.value);
     } catch {
-      setError("failed to create an account");
+      setError("failed to login an account");
     }
     setLoading(false);
   }
@@ -34,7 +28,7 @@ function Sighnup() {
       <div className="bg-grey-lighter min-h-screen flex flex-col font-serif">
         <div className="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
           <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
-            <h1 className="mb-8 text-3xl text-center font-serif">Sign up</h1>
+            <h1 className="mb-8 text-3xl text-center font-serif">login </h1>
 
             {/* {JSON.stringify(currentUser)} */}
             {error && (
@@ -45,13 +39,6 @@ function Sighnup() {
               </div>
             )}
             <form onSubmit={handleSubmit}>
-              <input
-                type="text"
-                className="block border border-grey-light w-full p-3 rounded mb-4"
-                name="name"
-                placeholder="Name"
-                required
-              />
               <input
                 type="text"
                 className="block border border-grey-light w-full p-3 rounded mb-4"
@@ -68,49 +55,26 @@ function Sighnup() {
                 ref={passwordRef}
                 placeholder="Password"
               />
-              <input
-                type="password"
-                className="block border border-grey-light w-full p-3 rounded mb-4"
-                name="confirm_password"
-                ref={confirmPasswordRef}
-                placeholder="Confirm Password"
-              />
 
               <button
                 type="submit"
                 disabled={loading}
                 className="w-full text-center py-3 rounded bg-green-500 text-white hover:bg-green-600 focus:outline-none my-1"
               >
-                Create Account
+                Login Account
               </button>
             </form>
-            <div className="text-center text-sm text-gray-600 mt-4">
-              By signing up, you agree to the
-              <a
-                className="no-underline border-b border-grey-dark text-blue-500"
-                href="."
-              >
-                Terms of Service
-              </a>{" "}
-              and
-              <a
-                className="no-underline border-b border-grey-dark text-blue-500"
-                href="."
-              >
-                Privacy Policy
-              </a>
-            </div>
           </div>
 
           <div className="text-grey-dark mt-6">
-            Already have an account?
+            Don't have an account?
             <a
               className="no-underline border-b border-blue text-blue-600"
-              href="/login"
+              href="/sighnup"
             >
-              Log in
+              {" "}
+              sighnup
             </a>
-            .
           </div>
         </div>
       </div>
@@ -118,4 +82,4 @@ function Sighnup() {
   );
 }
 
-export default Sighnup;
+export default Login;
