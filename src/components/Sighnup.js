@@ -106,9 +106,12 @@ function Sighnup() {
 
           <div className="text-grey-dark mt-6">
             Already have an account?
-            <a className="no-underline border-b border-blue text-blue-600">
-              <Link to="/login">login</Link>
-            </a>
+            <Link
+              to="/login"
+              className="no-underline border-b border-blue text-blue-600"
+            >
+              login
+            </Link>
           </div>
         </div>
       </div>

@@ -70,9 +70,12 @@ function Login() {
 
           <div className="text-grey-dark mt-6">
             Don't have an account?
-            <a className="no-underline border-b border-blue text-blue-600">
-              <Link to="/sighnup">sighnup</Link>
-            </a>
+            <Link
+              to="/sighnup"
+              className="no-underline border-b border-blue text-blue-600"
+            >
+              sighnup
+            </Link>
           </div>
         </div>
       </div>
