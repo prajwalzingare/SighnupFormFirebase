@@ -6,6 +6,7 @@ import { auth } from "../firebase";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut,
 } from "firebase/auth";
 //we created context
 const AuthContext = React.createContext();
@@ -42,6 +43,15 @@ export function AuthProvider({ children }) {
       });
   }
 
+  function logout() {
+    return signOut(auth)
+      .then(() => {
+        console.log("sighnout succesfully");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
   //useeffect after components get mounted.
   useEffect(() => {
     //this method set the user and notifi that user gets set.it allows us to set the user.
@@ -61,6 +71,7 @@ export function AuthProvider({ children }) {
     currentUser,
     sighnup,
     login,
+    logout,
   };
 
   //auth provider is going to provide value.we are writinig the current user through value.
