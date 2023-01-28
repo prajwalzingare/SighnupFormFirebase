@@ -3,7 +3,10 @@ import React, { useContext, useState, useEffect } from "react";
 //importing auth from firebase folder
 import { auth } from "../firebase";
 
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 //we created context
 const AuthContext = React.createContext();
 
@@ -21,6 +24,16 @@ export function AuthProvider({ children }) {
   function sighnup(email, password) {
     //it will create user with email and password. by this we are not setting the user we are only creating it for setting the user firebase auth have another method further down below.
     return createUserWithEmailAndPassword(auth, email, password)
+      .then((user) => {
+        console.log(user);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  function login(email, password) {
+    return signInWithEmailAndPassword(auth, email, password)
       .then((user) => {
         console.log(user);
       })
@@ -47,6 +60,7 @@ export function AuthProvider({ children }) {
   const value = {
     currentUser,
     sighnup,
+    login,
   };
 
   //auth provider is going to provide value.we are writinig the current user through value.

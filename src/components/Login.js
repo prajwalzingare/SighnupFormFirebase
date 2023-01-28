@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 function Login() {
@@ -10,7 +11,7 @@ function Login() {
   const { login } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-
+  const navigate = useNavigate();
   //submit function for form submition
   async function handleSubmit(event) {
     event.preventDefault();
@@ -18,6 +19,7 @@ function Login() {
       setError("");
       setLoading(true);
       await login(emailRef.current.value, passwordRef.current.value);
+      navigate("/");
     } catch {
       setError("failed to login an account");
     }
@@ -61,19 +63,15 @@ function Login() {
                 disabled={loading}
                 className="w-full text-center py-3 rounded bg-green-500 text-white hover:bg-green-600 focus:outline-none my-1"
               >
-                Login Account
+                Log In Account
               </button>
             </form>
           </div>
 
           <div className="text-grey-dark mt-6">
             Don't have an account?
-            <a
-              className="no-underline border-b border-blue text-blue-600"
-              href="/sighnup"
-            >
-              {" "}
-              sighnup
+            <a className="no-underline border-b border-blue text-blue-600">
+              <Link to="/sighnup">sighnup</Link>
             </a>
           </div>
         </div>

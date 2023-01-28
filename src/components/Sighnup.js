@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 function Sighnup() {
@@ -7,15 +8,15 @@ function Sighnup() {
   const passwordRef = useRef();
   const confirmPasswordRef = useRef();
   //sighnup function from useAuth()
-  const { sighnup } = useAuth();
+  const { sighnup, currentUser } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-
+  //for navigation after sighnup
+  const navigate = useNavigate();
   //submit function for form submition
   async function handleSubmit(event) {
     event.preventDefault();
-    console.log(passwordRef.current.value);
-    console.log(emailRef.current.value);
+
     if (passwordRef.current.value !== confirmPasswordRef.current.value) {
       //it will exist out of function after returning error
       return setError("password do not match");
@@ -24,6 +25,7 @@ function Sighnup() {
       setError("");
       setLoading(true);
       await sighnup(emailRef.current.value, passwordRef.current.value);
+      navigate("/");
     } catch {
       setError("failed to create an account");
     }
@@ -36,7 +38,7 @@ function Sighnup() {
           <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
             <h1 className="mb-8 text-3xl text-center font-serif">Sign up</h1>
 
-            {/* {JSON.stringify(currentUser)} */}
+            {JSON.stringify(currentUser?.email)}
             {error && (
               <div role="alert">
                 <div className="bg-red-500 text-white font-bold rounded-t px-4 py-4 mb-2">
@@ -104,13 +106,9 @@ function Sighnup() {
 
           <div className="text-grey-dark mt-6">
             Already have an account?
-            <a
-              className="no-underline border-b border-blue text-blue-600"
-              href="/login"
-            >
-              Log in
+            <a className="no-underline border-b border-blue text-blue-600">
+              <Link to="/login">login</Link>
             </a>
-            .
           </div>
         </div>
       </div>
