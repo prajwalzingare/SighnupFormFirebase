@@ -7,6 +7,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 //we created context
 const AuthContext = React.createContext();
@@ -24,23 +25,11 @@ export function AuthProvider({ children }) {
   //we are gonna use that auth module to sighnup the user.by creating the function sighnup.
   function sighnup(email, password) {
     //it will create user with email and password. by this we are not setting the user we are only creating it for setting the user firebase auth have another method further down below.
-    return createUserWithEmailAndPassword(auth, email, password)
-      .then((user) => {
-        console.log(user);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    return createUserWithEmailAndPassword(auth, email, password);
   }
 
   function login(email, password) {
-    return signInWithEmailAndPassword(auth, email, password)
-      .then((user) => {
-        console.log(user);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    return signInWithEmailAndPassword(auth, email, password);
   }
 
   function logout() {
@@ -52,10 +41,15 @@ export function AuthProvider({ children }) {
         console.log(error);
       });
   }
+
+  function resetPassword(email) {
+    return sendPasswordResetEmail(auth, email);
+  }
   //useeffect after components get mounted.
   useEffect(() => {
     //this method set the user and notifi that user gets set.it allows us to set the user.
     const unsubscribe = auth.onAuthStateChanged((user) => {
+      console.log(user);
       setCurrentUser(user);
       setLoading(false);
     });
@@ -72,6 +66,7 @@ export function AuthProvider({ children }) {
     sighnup,
     login,
     logout,
+    resetPassword,
   };
 
   //auth provider is going to provide value.we are writinig the current user through value.
