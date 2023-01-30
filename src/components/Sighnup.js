@@ -38,7 +38,7 @@ function Sighnup() {
           <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
             <h1 className="mb-8 text-3xl text-center font-serif">Sign up</h1>
 
-            {JSON.stringify(currentUser?.email)}
+            {/* {JSON.stringify(currentUser?.email)} */}
             {error && (
               <div role="alert">
                 <div className="bg-red-500 text-white font-bold rounded-t px-4 py-4 mb-2">
