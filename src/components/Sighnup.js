@@ -8,7 +8,7 @@ function Sighnup() {
   const passwordRef = useRef();
   const confirmPasswordRef = useRef();
   //sighnup function from useAuth()
-  const { sighnup, currentUser } = useAuth();
+  const { sighnup } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   //for navigation after sighnup
