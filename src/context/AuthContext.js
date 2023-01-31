@@ -8,6 +8,8 @@ import {
   signInWithEmailAndPassword,
   signOut,
   sendPasswordResetEmail,
+  updateEmail,
+  updatePassword,
 } from "firebase/auth";
 //we created context
 const AuthContext = React.createContext();
@@ -45,6 +47,27 @@ export function AuthProvider({ children }) {
   function resetPassword(email) {
     return sendPasswordResetEmail(auth, email);
   }
+
+  function updateEmailFirebase(email) {
+    return updateEmail(auth.currentUser, email)
+      .then(() => {
+        console.log(" email update succesfully");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  function updatePasswordFirebase(password) {
+    return updatePassword(auth.currentUser, password)
+      .then(() => {
+        console.log("password update succesfully");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   //useeffect after components get mounted.
   useEffect(() => {
     //this method set the user and notifi that user gets set.it allows us to set the user.
@@ -67,6 +90,8 @@ export function AuthProvider({ children }) {
     login,
     logout,
     resetPassword,
+    updateEmailFirebase,
+    updatePasswordFirebase,
   };
 
   //auth provider is going to provide value.we are writinig the current user through value.
